@@ -78,12 +78,12 @@ body {
     flex-basis: 25%;
     display: grid;
     gap: 1rem;
-    margin-top: var(--margin-or-gap);
+    margin: var(--margin-or-gap) 0;
 }
 
 button {
     border: none;
-    height: 12vh; /* since available height for cal-input is 60vh(60%) */
+    height: 10vh; 
     width: 20.625vw; /* the available width is 90vw(90%) for calc-input, and that minus the gaps is 82.5vw, so this divided by 4 */
     color: var(--blue);
     background-color: var(--btn-bgcolor);
