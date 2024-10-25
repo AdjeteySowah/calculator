@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+/* || RESET */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font: inherit;
+}
+
+/* || VARIABLES */
+:root {
+        /* fonts */
+    --font-family-sans-serif: "Roboto", sans-serif;
+    --font-size-sm: 1.5rem;
+    --font-weight-reg: 700;
+    
+        /* colors */
+    --blue: rgb(4, 104, 191);
+    --light-blue: rgb(67, 145, 212);
+    --main-bgcolor: rgb(15, 22, 27);
+    --AC-and-del-bgcolor: rgba(210, 210, 210, 0.3);
+    --btn-bgcolor: rgba(210, 210, 210, 0.08);
+
+        /* others */
+    --margin-or-gap: 0.5rem;
+}
+
+/* || GENERAL STYLES */
+body {
+    height: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.body-inner {
+    font-family: var(--font-family-sans-serif);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-reg);
+    background-color: var(--main-bgcolor);
+    display: flex;
+    flex-direction: column;
+    height: 100vh; 
+    padding: 5%;
+}
+
+.calc-output {
+    flex-basis: 40%;
+}
+
+.calc-input {
+    flex-basis: 60%;
+    display: grid;
+    gap: 0.5rem;
+}
+
+.top-section {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+}
+
+.bottom-section {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.bottom--left-section {
+    flex-basis: 75%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+}
+
+.bottom--right-section {
+    flex-basis: 25%;
+    display: grid;
+    gap: 1rem;
+    margin-top: var(--margin-or-gap);
+}
+
+button {
+    border: none;
+    height: 12vh; /* since available height for cal-input is 60vh(60%) */
+    width: 20.625vw; /* the available width is 90vw(90%) for calc-input, and that minus the gaps is 82.5vw, so this divided by 4 */
+    color: var(--blue);
+    background-color: var(--btn-bgcolor);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+    border-radius: 1rem;
+}
+
+.bottom--right-section button {
+    height: auto;
+    color: rgb(255, 255, 255);
+}
+
+/* the backspace image didn't seem to be right in the center at first */
+.top-section button:nth-child(2) {
+    display: grid;
+    place-content: center;
+}
+
+.all-clear-btn,
+.division-btn,
+.multiplication-btn,
+.minus-btn,
+.plus-btn,
+.equals-btn {
+    color: rgb(255, 255, 255);
+}
+
+.all-clear-btn,
+.backspace-btn {
+    background-color: var(--AC-and-del-bgcolor);
+    margin-bottom: var(--margin-or-gap);
+}
+
+.division-btn,
+.multiplication-btn,
+.minus-btn,
+.plus-btn {
+    background-color: var(--blue);
+}
+
+.equals-btn {
+    background-color: var(--light-blue);
+}
+
+.one-btn {
+    margin-bottom: var(--margin-or-gap);
+}
