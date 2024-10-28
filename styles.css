@@ -131,3 +131,30 @@ button {
 .one-btn {
     margin-bottom: var(--margin-or-gap);
 }
+
+/* || MEDIA QUERIES */
+@media screen and (width > 768px) {
+    html {
+        background-image: linear-gradient( 
+        to right,
+        rgb(4, 104, 191),
+        rgb(33, 135, 211),
+        rgb(72, 159, 223),
+        rgb(100, 181, 239),
+        rgb(120, 200, 255)
+        );
+        min-height: 100vh;
+    }
+
+    .body-inner {
+        max-width: 22%;
+        margin: 25px auto;
+        height: calc(100vh - 50px); /* minus the top and bottom margin */
+        border-radius: 1rem;
+        padding: 1.25%;
+    }
+        /* The container .body-inner is set from 90% to 22% of the viewport, but the initial 20.625vw button width is too wide for this smaller container so the button width has to resized */
+    button {
+        width: auto;
+    }
+}
