@@ -143,13 +143,13 @@ button {
         rgb(100, 181, 239),
         rgb(120, 200, 255)
         );
-        min-height: 100vh;
+        max-height: 100vh;
     }
 
     .body-inner {
         max-width: 22%;
         margin: 25px auto;
-        height: calc(100vh - 50px); /* minus the top and bottom margin */
+        max-height: calc(100vh - 50px); /* minus the top and bottom margin */
         border-radius: 1rem;
         padding: 1.25%;
     }
