@@ -133,7 +133,7 @@ button {
 }
 
 /* || MEDIA QUERIES */
-@media screen and (width > 768px) {
+@media screen and (width > 900px) {
     html {
         background-image: linear-gradient( 
         to right,
