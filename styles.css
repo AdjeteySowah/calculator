@@ -15,9 +15,11 @@
         /* fonts */
     --font-family-sans-serif: "Roboto", sans-serif;
     --font-size-sm: 1.5rem;
+    --font-size-bg: 4rem;
     --font-weight-reg: 700;
     
         /* colors */
+    --white: rgb(255, 255, 255);
     --blue: rgb(4, 104, 191);
     --light-blue: rgb(67, 145, 212);
     --main-bgcolor: rgb(15, 22, 27);
@@ -48,7 +50,22 @@ body {
 
 .calc-output {
     flex-basis: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding-bottom: 5rem;
 }
+
+.output--top-section {
+    color: var(--white);
+    font-size: var(--font-size-bg);
+}
+
+/* .output--bottom-section {
+    color: var(--white);
+    font-size: var(--font-size-bg);
+} */
 
 .calc-input {
     flex-basis: 60%;
@@ -93,7 +110,7 @@ button {
 
 .bottom--right-section button {
     height: auto;
-    color: rgb(255, 255, 255);
+    color: var(--white);
 }
 
 /* the backspace image didn't seem to be right in the center at first */
@@ -108,7 +125,7 @@ button {
 .minus-btn,
 .plus-btn,
 .equals-btn {
-    color: rgb(255, 255, 255);
+    color: var(--white);
 }
 
 .all-clear-btn,
