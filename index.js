@@ -30,6 +30,40 @@ function divide(...args) {
    return divisionOutput;
 }
 
+let firstNumber;
+let operator;
+let secondNumber;
+
+function operate(operator, firstNumber, secondNumber) {
+   switch (operator) { /* update operator later*/
+      case "+" : /* update all cases later*/
+         add(firstNumber, secondNumber)
+         break;
+      case "-" :
+         subtract(firstNumber, secondNumber)
+         break;
+      case "*" :
+         multiply(firstNumber, secondNumber)
+         break;
+      case "/" :
+         divide(firstNumber, secondNumber)
+         break;
+   }
+}
+
+let outputTopSection = document.querySelector(".output--top-section");
+let outputArray = [];
+
+function getAndDisplayBtnTextContent(event) {
+      outputArray.push(event.target.textContent);
+      outputTopSection.textContent = outputArray.join("");
+}
+
+let populatableButtons = document.querySelectorAll(".screen-btn");
+populatableButtons.forEach((button) => {
+   button.addEventListener("click", getAndDisplayBtnTextContent);
+});
+
 function adjustHeight() {
    let parentDivInBody = document.querySelector(".body-inner");
    let vh = window.innerHeight * 0.01;
