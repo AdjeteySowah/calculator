@@ -46,10 +46,11 @@ function getAndDisplayBtnTextContent(event) {
              screenBtnClickEventNodes.length > 1
              &&
              screenBtnClickEventNodes[screenBtnClickEventNodes.length - 2].classList.contains("numeric")) {
-      outputArray.push(event.target.textContent);
+               outputArray.push(event.target.textContent);
    } else if (event.target.classList.contains("point-btn")) {
       let zeroConcat = "0" + ".";
       outputArray.push(zeroConcat);
+      // firstFiltration.push(zeroConcat);
    } else {
       outputArray.push(event.target.textContent)
    }
@@ -69,46 +70,75 @@ let operator;
 let secondNumber;
 
 function decipherNumAndOperator(event) {
-   // screenBtnClickEventNodes.push(event.target);
-
    let classes = Array.from(event.target.classList);
-
+      // getting the 1st number
    classes.forEach((className) => {
-      switch (className) {
-         case "sign" :
-   
-            let signVariable = event.target.textContent;
-            function parseMathOperator(sign) {
-               sign = sign
-               .replace("＋", "+")
-               .replace("−", "-")
-               .replace("×", "*")
-               .replace("÷", "/");
-   
-               return sign;
+      if (className === "sign") {
+
+         let signVariable = event.target.textContent;
+            if (firstFiltration.length === 0 &&
+               !firstFiltration.includes("+") &&
+               !firstFiltration.includes("-") &&
+               !firstFiltration.includes("*") &&
+               !firstFiltration.includes("/")) {
+                  function parseMathOperator(sign) {
+                     return sign
+                        .replace("+", "+")
+                        .replace("−", "-")
+                        .replace("×", "*")
+                        .replace("÷", "/");
+                  }
+                  firstFiltration.push(parseMathOperator(signVariable));
             }
-            firstFiltration.push(parseMathOperator(signVariable));
-   
-            break;
-   
-         case "num" :
-   
-            firstFiltration.push(event.target.textContent);
-            firstNumber = parseFloat(firstFiltration.join(""));
-   
-            break;
+      } else if (className === "num" && secondFiltration.length === 0 &&
+                (!firstFiltration.includes("+") ||
+                !firstFiltration.includes("-") ||
+                !firstFiltration.includes("*") ||
+                !firstFiltration.includes("/"))) {
+
+                  firstFiltration.push(event.target.textContent);
+                  firstNumber = parseFloat(firstFiltration.join(""));        
+
+      } else if (className === "num"
+                &&
+                isNaN(parseFloat(firstFiltration.join(""))) === true
+                &&
+                screenBtnClickEventNodes[screenBtnClickEventNodes.length-2].classList.contains("sign")) {
+
+                  firstFiltration.pop();
+                  firstFiltration.push("0");
+                  firstNumber = parseFloat(firstFiltration.join(""));           
       }
    });
+
+
+
+
    console.log(outputArray);
 
-   if (firstFiltration.length > 0 && outputArray[0] !== "0." && typeof(firstNumber) === "number") {
-      if (event.target.classList.contains("sign")) {
-         secondFiltration.push(event.target.textContent);
-         operator = secondFiltration[secondFiltration.length-1];
-      }
+      // getting the operator
+   if (firstFiltration.length > 0 
+      && firstFiltration.join("") !== "0."
+      && typeof(firstNumber) === "number") {
+         if (event.target.classList.contains("sign")) {
+            secondFiltration.push(event.target.textContent);
+            operator = secondFiltration[secondFiltration.length-1];
+         }
    }
-   console.log(firstFiltration);
-   console.log(secondFiltration);
+
+
+
+      // getting the 2nd number
+   if (secondFiltration.length > 0 && event.target.classList.contains("num")) {
+      thirdFiltration.push(event.target.textContent);
+      secondNumber = parseFloat(thirdFiltration.join(""));
+   }
+
+
+
+   console.log(firstNumber); // change them to log the actual numbers instead. eg. firstNumber etc
+   console.log(operator);
+   console.log(secondNumber);
 
    
 }
