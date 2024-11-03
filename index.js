@@ -6,21 +6,49 @@ allCleared.addEventListener("click", () => {
    secondFiltration = [];
    screenBtnClickEventNodes = [];
    outputTopSection.textContent = "0";
+
+   let operators = document.querySelectorAll(".sign");
+   operators.forEach((operator) => {
+      operator.addEventListener("click", getAndDisplayBtnTextContent);
+   });
 });
 
-let backspace = document.querySelector(".backspace-btn");
-backspace.addEventListener("click", () => {
-   outputArray.pop();
-   firstFiltration.pop();
-   secondFiltration.pop();
-   screenBtnClickEventNodes.pop();
+// let backspace = document.querySelector(".backspace-btn");
+// backspace.addEventListener("click", () => {
+//    screenBtnClickEventNodes.pop();
+   
+//    if (thirdFiltration.length > 0) {
+//       thirdFiltration.pop();
+//       outputArray.pop();
+//       console.log(outputArray);
+//       console.log(thirdFiltration);
+//       console.log(1);
+//    } else if (secondFiltration.length > out) {
+//       secondFiltration.pop();
+//       secondFiltration.pop();
+//       outputArray.pop();
+//       console.log(secondFiltration);
+//       console.log(2);
+//    } else if (firstFiltration.length > 0) {
+//       firstFiltration.pop();
+//       // outputArray.pop();
+//       console.log(firstFiltration);
+//       console.log(3);
+//    } else {
+//       firstFiltration.pop();
+//    }
 
-   if (outputArray.length > 0) {
-      outputTopSection.textContent = outputArray.join("");
-   } else {
-      outputTopSection.textContent = "0";
-   }
-});
+//    if (outputArray.length > 0) {
+//       outputTopSection.textContent = outputArray.join("");
+//    } else {
+//       outputTopSection.textContent = "0";
+//    }
+
+//    let operators = document.querySelectorAll(".sign");
+//    operators.forEach((operator) => {
+//       operator.addEventListener("click", getAndDisplayBtnTextContent);
+//    });
+// });
 
 // let percent = document.querySelector(".percentage-btn");
 // percent.addEventListener("click", () => {
@@ -71,6 +99,7 @@ let secondNumber;
 
 function decipherNumAndOperator(event) {
    let classes = Array.from(event.target.classList);
+
       // getting the 1st number
    classes.forEach((className) => {
       if (className === "sign") {
@@ -112,20 +141,43 @@ function decipherNumAndOperator(event) {
    });
 
 
-
-
-   console.log(outputArray);
-
       // getting the operator
    if (firstFiltration.length > 0 
       && firstFiltration.join("") !== "0."
       && typeof(firstNumber) === "number") {
-         if (event.target.classList.contains("sign")) {
+         if (event.target.classList.contains("sign") && secondFiltration.length < 2) {
+
             secondFiltration.push(event.target.textContent);
-            operator = secondFiltration[secondFiltration.length-1];
+
+            if ((secondFiltration[0] === "×" || secondFiltration === "÷")
+               && secondFiltration[1] === "−") {
+                  secondFiltration[1] = secondFiltration[1].replace("−", "-");
+                  operator = secondFiltration[0];
+                  thirdFiltration.push(secondFiltration[1]);
+            } else if ((secondFiltration[0] === "+" ||
+                        secondFiltration[0] === "−" ||
+                        secondFiltration[0] === "×" ||
+                        secondFiltration[0] === "÷") && 
+                       (secondFiltration[1] === "+" ||
+                        secondFiltration[1] === "−" || 
+                        secondFiltration[1] === "×" || 
+                        secondFiltration[1] === "÷")) {
+                           outputTopSection.textContent = "";
+                           outputArray = [];
+                           outputArray.push(firstFiltration.join(""));
+                           outputArray.push(event.target.textContent);
+                           outputTopSection.textContent = outputArray.join("");
+                           operator = secondFiltration[1];
+
+                           let operators = document.querySelectorAll(".sign");
+                           operators.forEach((operator) => {
+                              operator.removeEventListener("click", getAndDisplayBtnTextContent);
+                           });
+            } else {
+            operator = secondFiltration[0];
+            }
          }
    }
-
 
 
       // getting the 2nd number
@@ -136,9 +188,10 @@ function decipherNumAndOperator(event) {
 
 
 
-   console.log(firstNumber); // change them to log the actual numbers instead. eg. firstNumber etc
-   console.log(operator);
-   console.log(secondNumber);
+   console.log(outputArray); 
+   // console.log(firstFiltration); 
+   // console.log(secondFiltration); 
+   // console.log(thirdFiltration);
 
    
 }
@@ -181,31 +234,29 @@ function divide(...args) {
 
 
 
-let operators = document.querySelectorAll(".sign");
+// function operate(firstNumber, secondNumber) {
+//    operators.forEach((operator) => {
+//       let classes = Array.from(operator.classList);
 
-function operate(firstNumber, secondNumber) {
-   operators.forEach((operator) => {
-      let classes = Array.from(operator.classList);
-
-      classes.forEach((className) => {
-         switch (className) { 
-            case "plus-btn" :
-               add(firstNumber, secondNumber)
-               break;
-            case "minus-btn" :
-               subtract(firstNumber, secondNumber)
-               break;
-            case "multiplication-btn" :
-               multiply(firstNumber, secondNumber)
-               break;
-            case "division-btn" :
-               divide(firstNumber, secondNumber)
-               break;
-         }
-      });
-   });
+//       classes.forEach((className) => {
+//          switch (className) { 
+//             case "plus-btn" :
+//                add(firstNumber, secondNumber)
+//                break;
+//             case "minus-btn" :
+//                subtract(firstNumber, secondNumber)
+//                break;
+//             case "multiplication-btn" :
+//                multiply(firstNumber, secondNumber)
+//                break;
+//             case "division-btn" :
+//                divide(firstNumber, secondNumber)
+//                break;
+//          }
+//       });
+//    });
    
-}
+// }
 
 function adjustHeight() {
    let parentDivInBody = document.querySelector(".body-inner");
