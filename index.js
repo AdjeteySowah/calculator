@@ -20,28 +20,20 @@ backspace.addEventListener("click", () => {
    if (thirdFiltration.length > 0) {
       thirdFiltration.pop();
       outputArray.pop();
-      console.log(thirdFiltration);
-      console.log(1);
    } else if (secondFiltration.length > 1 && outputArray.length === 2) {
       secondFiltration.pop();
       secondFiltration.pop();
       outputArray.pop();
-      console.log(secondFiltration);
-      console.log(2);
    } else if (firstFiltration.length > 0 && outputArray.length === 1) {
       outputArray = [...outputArray[0]];
       firstFiltration.pop();
       outputArray.pop();
-      console.log(firstFiltration);
-      console.log(3);
    } else if (outputArray.length > firstFiltration.length) {
       secondFiltration.pop();
       outputArray.pop();
    } else {
       firstFiltration.pop();
       outputArray.pop();
-      console.log(firstFiltration);
-      console.log(3);
    }
 
    if (outputArray.length > 0) {
@@ -60,6 +52,10 @@ let percent = document.querySelector(".percentage-btn");
 percent.addEventListener("click", () => {
 
 });
+
+let equals = document.querySelector(".equals-btn");
+
+
 
 let populatableButtons = document.querySelectorAll(".screen-btn");
 populatableButtons.forEach((button) => {
@@ -157,8 +153,11 @@ function decipherNumAndOperator(event) {
 
                   firstFiltration.pop();
                   firstFiltration.push("0");
-                  secondFiltration.push(event.target.textContent);
-                  firstNumber = parseFloat(firstFiltration.join(""));           
+                  firstNumber = parseFloat(firstFiltration.join(""));
+
+                  secondFiltration.pop();
+                  secondFiltration.push(screenBtnClickEventNodes[0].textContent);
+                  operator = secondFiltration.join("");         
       }
    });
 
@@ -240,74 +239,53 @@ function decipherNumAndOperator(event) {
 
 
    // console.log(outputArray); 
-   console.log(firstFiltration); 
-   // console.log(secondFiltration); 
-   // console.log(thirdFiltration);
+   console.log(firstNumber); 
+   console.log(operator); 
+   console.log(secondNumber);
 
-   
+   operate(firstNumber, secondNumber);
 }
 
 
-function add(...args) {
-   let additionOutput = args.reduce((sum, nextNumber) => {
-      return sum + nextNumber;
-   });
 
+function operate(firstNumber, secondNumber) {
+   switch (operator) { 
+      case "+" :
+         add(firstNumber, secondNumber);
+         break;
+      case "−" :
+         subtract(firstNumber, secondNumber);
+         break;
+      case "×" :
+         multiply(firstNumber, secondNumber);
+         break;
+      case "÷" :
+         divide(firstNumber, secondNumber);
+         break;
+   }
+}
+
+function add(firstNumber, secondNumber) {
+   let additionOutput = firstNumber + secondNumber;
    return additionOutput;
 }
 
-function subtract(...args) {
-   let subtractionOutput = args.reduce((remainder, nextNumber) => {
-      return remainder - nextNumber;
-   });
-
+function subtract(firstNumber, secondNumber) {
+   let subtractionOutput = firstNumber - secondNumber;
    return subtractionOutput;
 }
 
-function multiply(...args) {
-   let multiplicationOutput = args.reduce((product, nextNumber) => {
-      return product * nextNumber;
-   });
-
+function multiply(firstNumber, secondNumber) {
+   let multiplicationOutput = firstNumber * secondNumber;
    return multiplicationOutput;
 }
 
-function divide(...args) {
-   let divisionOutput = args.reduce((quotient, nextNumber) => {
-      return quotient / nextNumber;
-   });
-
+function divide(firstNumber, secondNumber) {
+   let divisionOutput = firstNumber / secondNumber;
    return divisionOutput;
 }
 
 
-
-
-
-
-// function operate(firstNumber, secondNumber) {
-//    operators.forEach((operator) => {
-//       let classes = Array.from(operator.classList);
-
-//       classes.forEach((className) => {
-//          switch (className) { 
-//             case "plus-btn" :
-//                add(firstNumber, secondNumber)
-//                break;
-//             case "minus-btn" :
-//                subtract(firstNumber, secondNumber)
-//                break;
-//             case "multiplication-btn" :
-//                multiply(firstNumber, secondNumber)
-//                break;
-//             case "division-btn" :
-//                divide(firstNumber, secondNumber)
-//                break;
-//          }
-//       });
-//    });
-   
-// }
 
 function adjustHeight() {
    let parentDivInBody = document.querySelector(".body-inner");
