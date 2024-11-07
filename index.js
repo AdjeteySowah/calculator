@@ -13,47 +13,53 @@ allCleared.addEventListener("click", () => {
    });
 });
 
-// let backspace = document.querySelector(".backspace-btn");
-// backspace.addEventListener("click", () => {
-//    screenBtnClickEventNodes.pop();
+let backspace = document.querySelector(".backspace-btn");
+backspace.addEventListener("click", () => {
+   screenBtnClickEventNodes.pop();
    
-//    if (thirdFiltration.length > 0) {
-//       thirdFiltration.pop();
-//       outputArray.pop();
-//       console.log(outputArray);
-//       console.log(thirdFiltration);
-//       console.log(1);
-//    } else if (secondFiltration.length > out) {
-//       secondFiltration.pop();
-//       secondFiltration.pop();
-//       outputArray.pop();
-//       console.log(secondFiltration);
-//       console.log(2);
-//    } else if (firstFiltration.length > 0) {
-//       firstFiltration.pop();
-//       // outputArray.pop();
-//       console.log(firstFiltration);
-//       console.log(3);
-//    } else {
-//       firstFiltration.pop();
-//    }
+   if (thirdFiltration.length > 0) {
+      thirdFiltration.pop();
+      outputArray.pop();
+      console.log(thirdFiltration);
+      console.log(1);
+   } else if (secondFiltration.length > 1 && outputArray.length === 2) {
+      secondFiltration.pop();
+      secondFiltration.pop();
+      outputArray.pop();
+      console.log(secondFiltration);
+      console.log(2);
+   } else if (firstFiltration.length > 0 && outputArray.length === 1) {
+      outputArray = [...outputArray[0]];
+      firstFiltration.pop();
+      outputArray.pop();
+      console.log(firstFiltration);
+      console.log(3);
+   } else if (outputArray.length > firstFiltration.length) {
+      secondFiltration.pop();
+      outputArray.pop();
+   } else {
+      firstFiltration.pop();
+      outputArray.pop();
+      console.log(firstFiltration);
+      console.log(3);
+   }
 
-//    if (outputArray.length > 0) {
-//       outputTopSection.textContent = outputArray.join("");
-//    } else {
-//       outputTopSection.textContent = "0";
-//    }
+   if (outputArray.length > 0) {
+      outputTopSection.textContent = outputArray.join("");
+   } else {
+      outputTopSection.textContent = "0";
+   }
 
-//    let operators = document.querySelectorAll(".sign");
-//    operators.forEach((operator) => {
-//       operator.addEventListener("click", getAndDisplayBtnTextContent);
-//    });
-// });
+   let operators = document.querySelectorAll(".sign");
+   operators.forEach((operator) => {
+      operator.addEventListener("click", getAndDisplayBtnTextContent);
+   });
+});
 
-// let percent = document.querySelector(".percentage-btn");
-// percent.addEventListener("click", () => {
+let percent = document.querySelector(".percentage-btn");
+percent.addEventListener("click", () => {
 
-// });
+});
 
 let populatableButtons = document.querySelectorAll(".screen-btn");
 populatableButtons.forEach((button) => {
@@ -86,6 +92,23 @@ function getAndDisplayBtnTextContent(event) {
    outputTopSection.textContent = outputArray.join("");
 
    decipherNumAndOperator(event);
+
+   allowOnlyOnePointInNumber();
+}
+
+point = document.querySelector(".point");
+
+function allowOnlyOnePointInNumber() {
+   if (thirdFiltration.includes(".")) {
+      point.removeEventListener("click", getAndDisplayBtnTextContent);
+   } else if (secondFiltration.length > 0 && !thirdFiltration.includes(".")) {
+      point.removeEventListener("click", getAndDisplayBtnTextContent);
+      point.addEventListener("click", getAndDisplayBtnTextContent);
+   } else if (secondFiltration.length > 0) {
+      point.addEventListener("click", getAndDisplayBtnTextContent);
+   } else if (firstFiltration.includes(".")) {
+      point.removeEventListener("click", getAndDisplayBtnTextContent);
+   }
 }
 
 
@@ -120,9 +143,9 @@ function decipherNumAndOperator(event) {
                   firstFiltration.push(parseMathOperator(signVariable));
             }
       } else if (className === "num" && secondFiltration.length === 0 &&
-                (!firstFiltration.includes("+") ||
-                !firstFiltration.includes("-") ||
-                !firstFiltration.includes("*") ||
+                (!firstFiltration.includes("+") &&
+                !firstFiltration.includes("-") &&
+                !firstFiltration.includes("*") &&
                 !firstFiltration.includes("/"))) {
 
                   firstFiltration.push(event.target.textContent);
@@ -130,12 +153,11 @@ function decipherNumAndOperator(event) {
 
       } else if (className === "num"
                 &&
-                isNaN(parseFloat(firstFiltration.join(""))) === true
-                &&
-                screenBtnClickEventNodes[screenBtnClickEventNodes.length-2].classList.contains("sign")) {
+                screenBtnClickEventNodes[0].classList.contains("sign")) {
 
                   firstFiltration.pop();
                   firstFiltration.push("0");
+                  secondFiltration.push(event.target.textContent);
                   firstNumber = parseFloat(firstFiltration.join(""));           
       }
    });
@@ -154,6 +176,34 @@ function decipherNumAndOperator(event) {
                   secondFiltration[1] = secondFiltration[1].replace("−", "-");
                   operator = secondFiltration[0];
                   thirdFiltration.push(secondFiltration[1]);
+
+                  let operators = document.querySelectorAll(".sign");
+                  operators.forEach((operator) => {
+                     operator.removeEventListener("click", getAndDisplayBtnTextContent);
+                  });
+
+            } else if ((secondFiltration[0] === "+" ||
+                        secondFiltration[0] === "−" ||
+                        secondFiltration[0] === "×" ||
+                        secondFiltration[0] === "÷") && 
+                       (secondFiltration[1] === "+" ||
+                        secondFiltration[1] === "−" || 
+                        secondFiltration[1] === "×" || 
+                        secondFiltration[1] === "÷") &&
+                        firstFiltration[0] === ".") {
+
+                           outputTopSection.textContent = "";
+                           outputArray = ["0"];
+                           outputArray.push(firstFiltration.join(""));
+                           outputArray.push(event.target.textContent);
+                           outputTopSection.textContent = outputArray.join("");
+                           operator = secondFiltration[1];
+
+                           let operators = document.querySelectorAll(".sign");
+                           operators.forEach((operator) => {
+                              operator.removeEventListener("click", getAndDisplayBtnTextContent);
+                           });
+
             } else if ((secondFiltration[0] === "+" ||
                         secondFiltration[0] === "−" ||
                         secondFiltration[0] === "×" ||
@@ -162,6 +212,7 @@ function decipherNumAndOperator(event) {
                         secondFiltration[1] === "−" || 
                         secondFiltration[1] === "×" || 
                         secondFiltration[1] === "÷")) {
+
                            outputTopSection.textContent = "";
                            outputArray = [];
                            outputArray.push(firstFiltration.join(""));
@@ -188,8 +239,8 @@ function decipherNumAndOperator(event) {
 
 
 
-   console.log(outputArray); 
-   // console.log(firstFiltration); 
+   // console.log(outputArray); 
+   console.log(firstFiltration); 
    // console.log(secondFiltration); 
    // console.log(thirdFiltration);
 
