@@ -18,8 +18,19 @@ backspace.addEventListener("click", () => {
    screenBtnClickEventNodes.pop();
    
    if (thirdFiltration.length > 0) {
-      thirdFiltration.pop();
+      secondNumber = secondNumber.toString();
+      secondNumber = secondNumber.split("");
+      let poppedItem = secondNumber.pop();
+      if (thirdFiltration[thirdFiltration.length-1] === ".") {
+         thirdFiltration.pop();
+         secondNumber.push(poppedItem);
+      } else {
+         thirdFiltration.pop();
+      }
+      secondNumber = parseFloat(secondNumber.join(""));
       outputArray.pop();
+      evaluateCalculation();
+
    } else if (secondFiltration.length > 1 && outputArray.length === 2) {
       secondFiltration.pop();
       secondFiltration.pop();
@@ -338,18 +349,22 @@ function evaluateAndChainCalculation(event) {
 let outputBottomSection = document.querySelector(".output--bottom-section");
 
 function evaluateCalculation() {
-   if (firstFiltration.length > 0 &&
-       typeof(operator) === "string" &&
-       thirdFiltration.length > 0) {
-         if (operator === "+") {
-            outputBottomSection.textContent = add(firstNumber, secondNumber);
-         } else if (operator === "−") {
-            outputBottomSection.textContent = subtract(firstNumber, secondNumber);
-         } else if (operator === "×") {
-            outputBottomSection.textContent = multiply(firstNumber, secondNumber);
-         } else {
-            outputBottomSection.textContent = divide(firstNumber, secondNumber);
-         }
+   if (isNaN(secondNumber) === true) {
+      outputBottomSection.textContent = "...";
+    } else if (firstFiltration.length > 0 &&
+               typeof(operator) === "string" &&
+               thirdFiltration.length > 0) {
+            if (operator === "+") {
+               outputBottomSection.textContent = add(firstNumber, secondNumber);
+            } else if (operator === "−") {
+               outputBottomSection.textContent = subtract(firstNumber, secondNumber);
+            } else if (operator === "×") {
+               outputBottomSection.textContent = multiply(firstNumber, secondNumber);
+            } else {
+               outputBottomSection.textContent = divide(firstNumber, secondNumber);
+            }
+       } else if (thirdFiltration.length === 0) {
+         outputBottomSection.textContent = "";
        }
 }
 
