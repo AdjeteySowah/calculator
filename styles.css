@@ -63,8 +63,9 @@ body {
 }
 
 .output--bottom-section {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.3);
     font-size: 2rem;
+    min-height: 2.375rem;
 }
 
 .calc-input {
