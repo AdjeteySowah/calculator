@@ -62,10 +62,10 @@ body {
     font-size: var(--font-size-bg);
 }
 
-/* .output--bottom-section {
-    color: var(--white);
-    font-size: var(--font-size-bg);
-} */
+.output--bottom-section {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 2rem;
+}
 
 .calc-input {
     flex-basis: 60%;
