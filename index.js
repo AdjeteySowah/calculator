@@ -91,6 +91,8 @@ function getAndDisplayBtnTextContent(event) {
 
    decipherNumAndOperator(event);
 
+   evaluateCalculation();
+
    allowOnlyOnePointInNumber();
 }
 
@@ -236,6 +238,11 @@ function decipherNumAndOperator(event) {
    if (secondFiltration.length > 0 && event.target.classList.contains("num")) {
       thirdFiltration.push(event.target.textContent);
       secondNumber = parseFloat(thirdFiltration.join(""));
+
+      let operators = document.querySelectorAll(".sign");
+      operators.forEach((operator) => {
+         operator.addEventListener("click", getAndDisplayBtnTextContent);
+      });
    }
 
 
@@ -296,7 +303,6 @@ function evaluateAndChainCalculation(event) {
        event.target.classList.contains("sign")) {
          outputTopSection.textContent = "";
          outputArray = [];
-         // operator = event.target.textContent;
          if (operator === "+") {
             firstFiltration = [];
             firstFiltration.push(add(firstNumber, secondNumber).toString());
@@ -324,6 +330,26 @@ function evaluateAndChainCalculation(event) {
          }
          outputArray.push(firstFiltration.join(""));
          outputArray.push(event.target.textContent);
+       }
+}
+
+
+
+let outputBottomSection = document.querySelector(".output--bottom-section");
+
+function evaluateCalculation() {
+   if (firstFiltration.length > 0 &&
+       typeof(operator) === "string" &&
+       thirdFiltration.length > 0) {
+         if (operator === "+") {
+            outputBottomSection.textContent = add(firstNumber, secondNumber);
+         } else if (operator === "−") {
+            outputBottomSection.textContent = subtract(firstNumber, secondNumber);
+         } else if (operator === "×") {
+            outputBottomSection.textContent = multiply(firstNumber, secondNumber);
+         } else {
+            outputBottomSection.textContent = divide(firstNumber, secondNumber);
+         }
        }
 }
 
