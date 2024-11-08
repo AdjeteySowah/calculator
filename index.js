@@ -48,12 +48,12 @@ backspace.addEventListener("click", () => {
    });
 });
 
-let percent = document.querySelector(".percentage-btn");
-percent.addEventListener("click", () => {
+// let percent = document.querySelector(".percentage-btn");
+// percent.addEventListener("click", () => {
 
-});
+// });
 
-let equals = document.querySelector(".equals-btn");
+// let equals = document.querySelector(".equals-btn");
 
 
 
@@ -84,6 +84,8 @@ function getAndDisplayBtnTextContent(event) {
    } else {
       outputArray.push(event.target.textContent)
    }
+
+   evaluateAndChainCalculation(event);
 
    outputTopSection.textContent = outputArray.join("");
 
@@ -239,7 +241,7 @@ function decipherNumAndOperator(event) {
 
 
    // console.log(outputArray); 
-   console.log(firstNumber); 
+   // console.log(firstNumber); 
    console.log(operator); 
    console.log(secondNumber);
 
@@ -283,6 +285,46 @@ function multiply(firstNumber, secondNumber) {
 function divide(firstNumber, secondNumber) {
    let divisionOutput = firstNumber / secondNumber;
    return divisionOutput;
+}
+
+
+
+function evaluateAndChainCalculation(event) {
+   if (firstFiltration.length > 0 &&
+       typeof(operator) === "string" &&
+       thirdFiltration.length > 0 &&
+       event.target.classList.contains("sign")) {
+         outputTopSection.textContent = "";
+         outputArray = [];
+         // operator = event.target.textContent;
+         if (operator === "+") {
+            firstFiltration = [];
+            firstFiltration.push(add(firstNumber, secondNumber).toString());
+            firstNumber = parseFloat(firstFiltration.join(""));
+            secondFiltration = [];
+            thirdFiltration = [];
+         } else if (operator === "−") {
+            firstFiltration = [];
+            firstFiltration.push(subtract(firstNumber, secondNumber).toString());
+            firstNumber = parseFloat(firstFiltration.join(""));
+            secondFiltration = [];
+            thirdFiltration = [];
+         } else if (operator === "×") {
+            firstFiltration = [];
+            firstFiltration.push(multiply(firstNumber, secondNumber).toString());
+            firstNumber = parseFloat(firstFiltration.join(""));
+            secondFiltration = [];
+            thirdFiltration = [];
+         } else {
+            firstFiltration = [];
+            firstFiltration.push(divide(firstNumber, secondNumber).toString());
+            firstNumber = parseFloat(firstFiltration.join(""));
+            secondFiltration = [];
+            thirdFiltration = [];
+         }
+         outputArray.push(firstFiltration.join(""));
+         outputArray.push(event.target.textContent);
+       }
 }
 
 
