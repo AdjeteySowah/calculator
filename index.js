@@ -3,9 +3,13 @@ let allCleared = document.querySelector(".all-clear-btn");
 allCleared.addEventListener("click", () => {
    outputArray = [];
    firstFiltration = [];
+   firstNumber = 0;
    secondFiltration = [];
+   thirdFiltration = [];
+   secondNumber = 0;
    screenBtnClickEventNodes = [];
    outputTopSection.textContent = "0";
+   outputBottomSection.textContent = "";
 
    let operators = document.querySelectorAll(".sign");
    operators.forEach((operator) => {
@@ -51,6 +55,7 @@ backspace.addEventListener("click", () => {
       outputTopSection.textContent = outputArray.join("");
    } else {
       outputTopSection.textContent = "0";
+      outputBottomSection.textContent = "";
    }
 
    let operators = document.querySelectorAll(".sign");
@@ -64,7 +69,34 @@ backspace.addEventListener("click", () => {
 
 // });
 
-// let equals = document.querySelector(".equals-btn");
+let equals = document.querySelector(".equals-btn");
+equals.addEventListener("click", () => {
+   if (outputBottomSection.textContent === "..." || outputBottomSection.textContent === "Infinity") {
+      outputTopSection.textContent = "";
+      outputTopSection.textContent = "bad expression";
+      outputBottomSection.textContent = "";
+
+      outputArray = [];
+      firstFiltration = [];
+      firstNumber = 0;
+      secondFiltration = [];
+      thirdFiltration = [];
+      secondNumber = 0;
+      screenBtnClickEventNodes = [];
+   } else {
+      outputTopSection.textContent = "";
+      outputTopSection.textContent = outputBottomSection.textContent;
+      outputBottomSection.textContent = "";
+
+      outputArray = [];
+      firstFiltration = [];
+      firstNumber = 0;
+      secondFiltration = [];
+      thirdFiltration = [];
+      secondNumber = 0;
+      screenBtnClickEventNodes = [];
+   }
+});
 
 
 
@@ -136,7 +168,17 @@ function decipherNumAndOperator(event) {
 
       // getting the 1st number
    classes.forEach((className) => {
-      if (className === "sign") {
+      if (className === "sign" &&
+          firstFiltration.length === 0 &&
+          (event.target.textContent === "+" || event.target.textContent === "−" ||
+           event.target.textContent === "×" || event.target.textContent === "÷")) {
+
+            let operators = document.querySelectorAll(".sign");
+            operators.forEach((operator) => {
+               operator.removeEventListener("click", getAndDisplayBtnTextContent);
+            });
+
+      } else if (className === "sign") {
 
          let signVariable = event.target.textContent;
             if (firstFiltration.length === 0 &&
@@ -160,11 +202,16 @@ function decipherNumAndOperator(event) {
                 !firstFiltration.includes("/"))) {
 
                   firstFiltration.push(event.target.textContent);
-                  firstNumber = parseFloat(firstFiltration.join(""));        
+                  firstNumber = parseFloat(firstFiltration.join(""));
+                  
+                  let operators = document.querySelectorAll(".sign");
+                  operators.forEach((operator) => {
+                     operator.addEventListener("click", getAndDisplayBtnTextContent);
+                  });
 
-      } else if (className === "num"
-                &&
-                screenBtnClickEventNodes[0].classList.contains("sign")) {
+      } else if (className === "num" &&
+                 firstNumber === undefined &&
+                 screenBtnClickEventNodes[0].classList.contains("sign")) {
 
                   firstFiltration.pop();
                   firstFiltration.push("0");
@@ -172,7 +219,12 @@ function decipherNumAndOperator(event) {
 
                   secondFiltration.pop();
                   secondFiltration.push(screenBtnClickEventNodes[0].textContent);
-                  operator = secondFiltration.join("");         
+                  operator = secondFiltration.join("");      
+                  
+                  let operators = document.querySelectorAll(".sign");
+                  operators.forEach((operator) => {
+                     operator.addEventListener("click", getAndDisplayBtnTextContent);
+                  });
       }
    });
 
@@ -309,6 +361,7 @@ function divide(firstNumber, secondNumber) {
 
 function evaluateAndChainCalculation(event) {
    if (firstFiltration.length > 0 &&
+       firstNumber !== 0 &&
        typeof(operator) === "string" &&
        thirdFiltration.length > 0 &&
        event.target.classList.contains("sign")) {
@@ -341,6 +394,42 @@ function evaluateAndChainCalculation(event) {
          }
          outputArray.push(firstFiltration.join(""));
          outputArray.push(event.target.textContent);
+       } else if (firstNumber === 0 &&
+                  typeof(operator) === "string" &&
+                  thirdFiltration.length > 0 &&
+                  event.target.classList.contains("sign")) {
+                     secondFiltration.pop();
+                     secondFiltration.push(event.target.textContent);
+                     // operator = event.target.textContent;
+                     if (operator === "+") {
+                        firstFiltration = [];
+                        firstFiltration.push(add(firstNumber, secondNumber).toString());
+                        firstNumber = parseFloat(firstFiltration.join(""));
+                        secondFiltration = [];
+                        thirdFiltration = [];
+                        secondNumber = parseFloat(thirdFiltration.join(""));
+                     } else if (operator === "−") {
+                        firstFiltration = [];
+                        firstFiltration.push(subtract(firstNumber, secondNumber).toString());
+                        firstNumber = parseFloat(firstFiltration.join(""));
+                        secondFiltration = [];
+                        thirdFiltration = [];
+                        secondNumber = parseFloat(thirdFiltration.join(""));
+                     } else if (operator === "×") {
+                        firstFiltration = [];
+                        firstFiltration.push(multiply(firstNumber, secondNumber).toString());
+                        firstNumber = parseFloat(firstFiltration.join(""));
+                        secondFiltration = [];
+                        thirdFiltration = [];
+                        secondNumber = parseFloat(thirdFiltration.join(""));
+                     } else {
+                        firstFiltration = [];
+                        firstFiltration.push(divide(firstNumber, secondNumber).toString());
+                        firstNumber = parseFloat(firstFiltration.join(""));
+                        secondFiltration = [];
+                        thirdFiltration = [];
+                        secondNumber = parseFloat(thirdFiltration.join(""));
+                     }
        }
 }
 
