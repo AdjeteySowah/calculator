@@ -46,8 +46,6 @@ body {
     flex-direction: column;
     height: 100vh; 
     padding: 5%;
-    overflow-x: auto;  
-    white-space: nowrap;
 }
 
 .calc-output {
@@ -62,12 +60,18 @@ body {
 .output--top-section {
     color: var(--white);
     font-size: var(--font-size-bg);
+    max-width: 100%;
+    overflow-x: auto;  
+    white-space: nowrap;
 }
 
 .output--bottom-section {
     color: rgba(255, 255, 255, 0.3);
     font-size: var(--font-size-sm);
     min-height: 2.375rem;
+    max-width: 100%;
+    overflow-x: auto;  
+    white-space: nowrap;
 }
 
 .calc-input {
