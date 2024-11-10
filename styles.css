@@ -46,6 +46,8 @@ body {
     flex-direction: column;
     height: 100vh; 
     padding: 5%;
+    overflow-x: auto;  
+    white-space: nowrap;
 }
 
 .calc-output {
