@@ -74,7 +74,6 @@ percent.addEventListener("click", () => {
 
       outputArray = [];
       firstFiltration = [];
-      // firstNumber = 0;
       firstFiltration.push(firstNumber);
       outputArray.push(firstFiltration.join(""));
       outputTopSection.textContent = firstFiltration.join("");
@@ -83,12 +82,12 @@ percent.addEventListener("click", () => {
 
       outputArray.pop();
       thirdFiltration = [];
-      // secondNumber = 0;
       thirdFiltration.push(secondNumber);
       outputArray.push(thirdFiltration.join(""));
       outputTopSection.textContent = firstFiltration.join("") + operator + thirdFiltration.join("");
    }
 
+   allowOnlyOnePointInNumber();
    evaluateCalculation();
 });
 
@@ -97,6 +96,7 @@ let equals = document.querySelector(".equals-btn");
 equals.addEventListener("click", () => {
    if (outputBottomSection.textContent === "..." || outputBottomSection.textContent === "Infinity") {
       outputTopSection.textContent = "";
+      outputTopSection.style.cssText = "font-size: 1.5rem; font-weight: 400;"
       outputTopSection.textContent = "bad expression";
       outputBottomSection.textContent = "";
 
@@ -156,14 +156,17 @@ function getAndDisplayBtnTextContent(event) {
 point = document.querySelector(".point");
 
 function allowOnlyOnePointInNumber() {
-   if (thirdFiltration.includes(".")) {
+   if ((typeof(secondNumber) === "number" && !Number.isNaN(secondNumber) && secondNumber % 1 !== 0) ||
+        thirdFiltration.includes(".")) {
       point.removeEventListener("click", getAndDisplayBtnTextContent);
-   } else if (secondFiltration.length > 0 && !thirdFiltration.includes(".")) {
+   } else if (secondFiltration.length > 0 && 
+             ((!Number.isNaN(secondNumber) && secondNumber % 1 !== 0) || !thirdFiltration.includes("."))) {
       point.removeEventListener("click", getAndDisplayBtnTextContent);
       point.addEventListener("click", getAndDisplayBtnTextContent);
    } else if (secondFiltration.length > 0) {
       point.addEventListener("click", getAndDisplayBtnTextContent);
-   } else if (firstFiltration.includes(".")) {
+   } else if ((typeof(firstNumber) === "number" && !Number.isNaN(firstNumber) && firstNumber % 1 !== 0) ||
+               firstFiltration.includes(".")) {
       point.removeEventListener("click", getAndDisplayBtnTextContent);
    }
 }
@@ -251,6 +254,7 @@ function decipherNumAndOperator(event) {
                   secondFiltration[1] = secondFiltration[1].replace("−", "-");
                   operator = secondFiltration[0];
                   thirdFiltration.push(secondFiltration[1]);
+                  secondNumber = parseFloat(thirdFiltration.join(""));
 
                   let operators = document.querySelectorAll(".sign");
                   operators.forEach((operator) => {
