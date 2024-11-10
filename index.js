@@ -101,11 +101,6 @@ equals.addEventListener("click", () => {
       outputBottomSection.textContent = "";
 
       outputArray = [];
-      firstFiltration = [];
-      firstNumber = 0;
-      secondFiltration = [];
-      thirdFiltration = [];
-      secondNumber = 0;
       screenBtnClickEventNodes = [];
    } else {
       outputTopSection.textContent = "";
@@ -113,11 +108,6 @@ equals.addEventListener("click", () => {
       outputBottomSection.textContent = "";
 
       outputArray = [];
-      firstFiltration = [];
-      firstNumber = 0;
-      secondFiltration = [];
-      thirdFiltration = [];
-      secondNumber = 0;
       screenBtnClickEventNodes = [];
    }
 });
@@ -386,25 +376,49 @@ function evaluateAndChainCalculation(event) {
          outputArray = [];
          if (operator === "+") {
             firstFiltration = [];
-            firstFiltration.push(add(firstNumber, secondNumber).toString());
+            if (typeof(add(firstNumber, secondNumber)) === "number" && 
+                !Number.isNaN(add(firstNumber, secondNumber)) && 
+                add(firstNumber, secondNumber) % 1 !== 0) {
+                  firstFiltration.push(parseFloat(add(firstNumber, secondNumber).toFixed(5)));
+            } else {
+                  firstFiltration.push(add(firstNumber, secondNumber).toString());
+            }
             firstNumber = parseFloat(firstFiltration.join(""));
             secondFiltration = [];
             thirdFiltration = [];
          } else if (operator === "−") {
             firstFiltration = [];
-            firstFiltration.push(subtract(firstNumber, secondNumber).toString());
+            if (typeof(subtract(firstNumber, secondNumber)) === "number" && 
+                !Number.isNaN(subtract(firstNumber, secondNumber)) && 
+                subtract(firstNumber, secondNumber) % 1 !== 0) {
+                  firstFiltration.push(parseFloat(subtract(firstNumber, secondNumber).toFixed(5)));
+            } else {
+                  firstFiltration.push(subtract(firstNumber, secondNumber).toString());
+            }
             firstNumber = parseFloat(firstFiltration.join(""));
             secondFiltration = [];
             thirdFiltration = [];
          } else if (operator === "×") {
             firstFiltration = [];
-            firstFiltration.push(multiply(firstNumber, secondNumber).toString());
+            if (typeof(multiply(firstNumber, secondNumber)) === "number" && 
+                !Number.isNaN(multiply(firstNumber, secondNumber)) && 
+                multiply(firstNumber, secondNumber) % 1 !== 0) {
+                  firstFiltration.push(parseFloat(multiply(firstNumber, secondNumber).toFixed(5)));
+            } else {
+                  firstFiltration.push(multiply(firstNumber, secondNumber).toString());
+            }
             firstNumber = parseFloat(firstFiltration.join(""));
             secondFiltration = [];
             thirdFiltration = [];
          } else {
             firstFiltration = [];
-            firstFiltration.push(divide(firstNumber, secondNumber).toString());
+            if (typeof(divide(firstNumber, secondNumber)) === "number" && 
+                !Number.isNaN(divide(firstNumber, secondNumber)) && 
+                divide(firstNumber, secondNumber) % 1 !== 0) {
+                  firstFiltration.push(parseFloat(divide(firstNumber, secondNumber).toFixed(5)));
+            } else {
+                  firstFiltration.push(divide(firstNumber, secondNumber).toString());
+            }
             firstNumber = parseFloat(firstFiltration.join(""));
             secondFiltration = [];
             thirdFiltration = [];
@@ -419,28 +433,52 @@ function evaluateAndChainCalculation(event) {
                      secondFiltration.push(event.target.textContent);
                      if (operator === "+") {
                         firstFiltration = [];
-                        firstFiltration.push(add(firstNumber, secondNumber).toString());
+                        if (typeof(add(firstNumber, secondNumber)) === "number" && 
+                            !Number.isNaN(add(firstNumber, secondNumber)) && 
+                            add(firstNumber, secondNumber) % 1 !== 0) {
+                              firstFiltration.push(parseFloat(add(firstNumber, secondNumber).toFixed(5)));
+                        } else {
+                              firstFiltration.push(add(firstNumber, secondNumber).toString());
+                        }
                         firstNumber = parseFloat(firstFiltration.join(""));
                         secondFiltration = [];
                         thirdFiltration = [];
                         secondNumber = parseFloat(thirdFiltration.join(""));
                      } else if (operator === "−") {
                         firstFiltration = [];
-                        firstFiltration.push(subtract(firstNumber, secondNumber).toString());
+                        if (typeof(subtract(firstNumber, secondNumber)) === "number" && 
+                            !Number.isNaN(subtract(firstNumber, secondNumber)) && 
+                            subtract(firstNumber, secondNumber) % 1 !== 0) {
+                              firstFiltration.push(parseFloat(subtract(firstNumber, secondNumber).toFixed(5)));
+                        } else {
+                              firstFiltration.push(subtract(firstNumber, secondNumber).toString());
+                        }
                         firstNumber = parseFloat(firstFiltration.join(""));
                         secondFiltration = [];
                         thirdFiltration = [];
                         secondNumber = parseFloat(thirdFiltration.join(""));
                      } else if (operator === "×") {
                         firstFiltration = [];
-                        firstFiltration.push(multiply(firstNumber, secondNumber).toString());
+                        if (typeof(multiply(firstNumber, secondNumber)) === "number" && 
+                            !Number.isNaN(multiply(firstNumber, secondNumber)) && 
+                            multiply(firstNumber, secondNumber) % 1 !== 0) {
+                              firstFiltration.push(parseFloat(multiply(firstNumber, secondNumber).toFixed(5)));
+                        } else {
+                              firstFiltration.push(multiply(firstNumber, secondNumber).toString());
+                        }
                         firstNumber = parseFloat(firstFiltration.join(""));
                         secondFiltration = [];
                         thirdFiltration = [];
                         secondNumber = parseFloat(thirdFiltration.join(""));
                      } else {
                         firstFiltration = [];
-                        firstFiltration.push(divide(firstNumber, secondNumber).toString());
+                        if (typeof(divide(firstNumber, secondNumber)) === "number" && 
+                            !Number.isNaN(divide(firstNumber, secondNumber)) && 
+                            divide(firstNumber, secondNumber) % 1 !== 0) {
+                              firstFiltration.push(parseFloat(divide(firstNumber, secondNumber).toFixed(5)));
+                        } else {
+                              firstFiltration.push(divide(firstNumber, secondNumber).toString());
+                        }
                         firstNumber = parseFloat(firstFiltration.join(""));
                         secondFiltration = [];
                         thirdFiltration = [];
@@ -474,8 +512,8 @@ function evaluateCalculation() {
 
    let outputNumber = parseFloat(outputBottomSection.textContent);
    if (typeof(outputNumber) === "number" && !Number.isNaN(outputNumber) && outputNumber % 1 !== 0) {
-      outputNumber = outputNumber.toFixed(2);
-      outputBottomSection.textContent = outputNumber;
+      outputNumber = outputNumber.toFixed(5);
+      outputBottomSection.textContent = parseFloat(outputNumber);
    }
 }
 
