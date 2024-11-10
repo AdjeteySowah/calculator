@@ -1,3 +1,4 @@
+   
    // AC, clear/backspace, percent, and equals functions
 let allCleared = document.querySelector(".all-clear-btn");
 allCleared.addEventListener("click", () => {
@@ -16,6 +17,7 @@ allCleared.addEventListener("click", () => {
       operator.addEventListener("click", getAndDisplayBtnTextContent);
    });
 });
+
 
 let backspace = document.querySelector(".backspace-btn");
 backspace.addEventListener("click", () => {
@@ -64,10 +66,32 @@ backspace.addEventListener("click", () => {
    });
 });
 
-// let percent = document.querySelector(".percentage-btn");
-// percent.addEventListener("click", () => {
 
-// });
+let percent = document.querySelector(".percentage-btn");
+percent.addEventListener("click", () => {
+   if (typeof(firstNumber) === "number" && thirdFiltration.length === 0) {
+      firstNumber = firstNumber / 100;
+
+      outputArray = [];
+      firstFiltration = [];
+      // firstNumber = 0;
+      firstFiltration.push(firstNumber);
+      outputArray.push(firstFiltration.join(""));
+      outputTopSection.textContent = firstFiltration.join("");
+   } else if (typeof(secondNumber) === "number") {
+      secondNumber = secondNumber / 100;
+
+      outputArray.pop();
+      thirdFiltration = [];
+      // secondNumber = 0;
+      thirdFiltration.push(secondNumber);
+      outputArray.push(thirdFiltration.join(""));
+      outputTopSection.textContent = firstFiltration.join("") + operator + thirdFiltration.join("");
+   }
+
+   evaluateCalculation();
+});
+
 
 let equals = document.querySelector(".equals-btn");
 equals.addEventListener("click", () => {
@@ -308,13 +332,6 @@ function decipherNumAndOperator(event) {
       });
    }
 
-
-
-   // console.log(outputArray); 
-   // console.log(firstNumber); 
-   console.log(operator); 
-   console.log(secondNumber);
-
    operate(firstNumber, secondNumber);
 }
 
@@ -400,7 +417,6 @@ function evaluateAndChainCalculation(event) {
                   event.target.classList.contains("sign")) {
                      secondFiltration.pop();
                      secondFiltration.push(event.target.textContent);
-                     // operator = event.target.textContent;
                      if (operator === "+") {
                         firstFiltration = [];
                         firstFiltration.push(add(firstNumber, secondNumber).toString());
@@ -455,6 +471,12 @@ function evaluateCalculation() {
        } else if (thirdFiltration.length === 0) {
          outputBottomSection.textContent = "";
        }
+
+   let outputNumber = parseFloat(outputBottomSection.textContent);
+   if (typeof(outputNumber) === "number" && !Number.isNaN(outputNumber) && outputNumber % 1 !== 0) {
+      outputNumber = outputNumber.toFixed(2);
+      outputBottomSection.textContent = outputNumber;
+   }
 }
 
 
