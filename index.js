@@ -181,18 +181,8 @@ function decipherNumAndOperator(event) {
    let classes = Array.from(event.target.classList);
 
       // getting the 1st number
-   classes.forEach((className) => {
-      if (className === "sign" &&
-          firstFiltration.length === 0 &&
-          (event.target.textContent === "+" || event.target.textContent === "−" ||
-           event.target.textContent === "×" || event.target.textContent === "÷")) {
-
-            let operators = document.querySelectorAll(".sign");
-            operators.forEach((operator) => {
-               operator.removeEventListener("click", getAndDisplayBtnTextContent);
-            });
-
-      } else if (className === "sign") {
+   classes.forEach((className) => { 
+      if (className === "sign") {
 
          let signVariable = event.target.textContent;
             if (firstFiltration.length === 0 &&
@@ -208,6 +198,11 @@ function decipherNumAndOperator(event) {
                         .replace("÷", "/");
                   }
                   firstFiltration.push(parseMathOperator(signVariable));
+
+                  let operators = document.querySelectorAll(".sign");
+                  operators.forEach((operator) => {
+                     operator.removeEventListener("click", getAndDisplayBtnTextContent);
+                  });
             }
       } else if (className === "num" && secondFiltration.length === 0 &&
                 (!firstFiltration.includes("+") &&
