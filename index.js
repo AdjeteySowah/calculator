@@ -123,6 +123,8 @@ let outputTopSection = document.querySelector(".output--top-section");
 let outputArray = [];
 let screenBtnClickEventNodes = [];
 
+
+
 function getAndDisplayBtnTextContent(event) {
    screenBtnClickEventNodes.push(event.target);
 
