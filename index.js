@@ -13,10 +13,10 @@ let allCleared = document.querySelector(".all-clear-btn");
 allCleared.addEventListener("click", () => {
    outputArray = [];
    firstFiltration = [];
-   firstNumber = 0;
+   firstNumber = undefined;
    secondFiltration = [];
    thirdFiltration = [];
-   secondNumber = 0;
+   secondNumber = undefined;
    screenBtnClickEventNodes = [];
    outputTopSection.style.cssText = "font-size: 2rem;"
    outputTopSection.textContent = "0";
@@ -114,6 +114,10 @@ equals.addEventListener("click", () => {
 
       outputArray = [];
       screenBtnClickEventNodes = [];
+      firstFiltration = [];
+      secondFiltration = [];
+      thirdFiltration = [];
+      secondNumber = undefined;
    } else {
       outputTopSection.textContent = "";
       outputTopSection.textContent = outputBottomSection.textContent;
@@ -121,6 +125,10 @@ equals.addEventListener("click", () => {
 
       outputArray = [];
       screenBtnClickEventNodes = [];
+      firstFiltration = [];
+      secondFiltration = [];
+      thirdFiltration = [];
+      secondNumber = undefined;
    }
 });
 
@@ -430,6 +438,7 @@ function evaluateAndChainCalculation(event) {
             firstNumber = parseFloat(firstFiltration.join(""));
             secondFiltration = [];
             thirdFiltration = [];
+            secondNumber = undefined;
          } else if (operator === "−") {
             firstFiltration = [];
             if (typeof(subtract(firstNumber, secondNumber)) === "number" && 
@@ -442,6 +451,7 @@ function evaluateAndChainCalculation(event) {
             firstNumber = parseFloat(firstFiltration.join(""));
             secondFiltration = [];
             thirdFiltration = [];
+            secondNumber = undefined;
          } else if (operator === "×") {
             firstFiltration = [];
             if (typeof(multiply(firstNumber, secondNumber)) === "number" && 
@@ -454,6 +464,7 @@ function evaluateAndChainCalculation(event) {
             firstNumber = parseFloat(firstFiltration.join(""));
             secondFiltration = [];
             thirdFiltration = [];
+            secondNumber = undefined;
          } else {
             firstFiltration = [];
             if (typeof(divide(firstNumber, secondNumber)) === "number" && 
@@ -466,13 +477,16 @@ function evaluateAndChainCalculation(event) {
             firstNumber = parseFloat(firstFiltration.join(""));
             secondFiltration = [];
             thirdFiltration = [];
+            secondNumber = undefined;
          }
          outputArray.push(firstFiltration.join(""));
          outputArray.push(event.target.textContent);
-       } else if (firstNumber === 0 &&
+      } else if (firstNumber === 0 &&
                   typeof(operator) === "string" &&
                   thirdFiltration.length > 0 &&
                   event.target.classList.contains("sign")) {
+                     outputTopSection.textContent = "";
+                     outputArray = [];
                      secondFiltration.pop();
                      secondFiltration.push(event.target.textContent);
                      if (operator === "+") {
@@ -528,7 +542,9 @@ function evaluateAndChainCalculation(event) {
                         thirdFiltration = [];
                         secondNumber = parseFloat(thirdFiltration.join(""));
                      }
-       }
+                     outputArray.push(firstFiltration.join(""));
+                     outputArray.push(event.target.textContent);
+      }
 }
 
 
