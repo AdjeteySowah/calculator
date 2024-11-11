@@ -18,6 +18,7 @@ allCleared.addEventListener("click", () => {
    thirdFiltration = [];
    secondNumber = 0;
    screenBtnClickEventNodes = [];
+   outputTopSection.style.cssText = "font-size: 2rem;"
    outputTopSection.textContent = "0";
    outputBottomSection.textContent = "";
 
