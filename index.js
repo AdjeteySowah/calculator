@@ -1,4 +1,16 @@
-   
+
+window.addEventListener("load", () => {
+if (!localStorage.getItem('alertsShown')) {
+   alert(`Hi there! Thanks for checking out my calculator web app. Before you get started, here are a few tips for the best experience:\n
+      1. Use portrait mode for optimal viewing, as the layout may not display well in landscape mode.\n
+      2. Decimal numbers are rounded to 5 decimal places for simplicity.\n\n
+      Enjoy!`);
+
+   localStorage.setItem('alertsShown', 'true');
+}
+});
+
+
    // AC, clear/backspace, percent, and equals functions
 let allCleared = document.querySelector(".all-clear-btn");
 allCleared.addEventListener("click", () => {
@@ -139,7 +151,6 @@ function getAndDisplayBtnTextContent(event) {
    } else if (event.target.classList.contains("point-btn")) {
       let zeroConcat = "0" + ".";
       outputArray.push(zeroConcat);
-      // firstFiltration.push(zeroConcat);
    } else {
       outputArray.push(event.target.textContent)
    }
@@ -154,6 +165,7 @@ function getAndDisplayBtnTextContent(event) {
 
    allowOnlyOnePointInNumber();
 }
+
 
 point = document.querySelector(".point");
 
