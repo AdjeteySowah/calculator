@@ -126,6 +126,11 @@ equals.addEventListener("click", () => {
 
 
 
+let allButtons = document.querySelectorAll("button");
+allButtons.forEach((button) => {
+   button.addEventListener("click", highlightButton);
+});
+
 let populatableButtons = document.querySelectorAll(".screen-btn");
 populatableButtons.forEach((button) => {
    button.addEventListener("click", getAndDisplayBtnTextContent);
@@ -134,6 +139,32 @@ populatableButtons.forEach((button) => {
 let outputTopSection = document.querySelector(".output--top-section");
 let outputArray = [];
 let screenBtnClickEventNodes = [];
+
+
+
+function highlightButton(event) {
+   if (event.target.classList.contains("all-clear-btn") || event.target.classList.contains("backspace-btn")) {
+      event.target.classList.add("acb-highlight");
+      setTimeout(() => {
+         event.target.classList.remove("acb-highlight");
+      }, 200);
+   } else if (event.target.classList.contains("sign")) {
+      event.target.classList.add("operator-highlight");
+      setTimeout(() => {
+         event.target.classList.remove("operator-highlight");
+      }, 200);
+   } else if (event.target.classList.contains("equals-btn")) {
+      event.target.classList.add("equals-highlight");
+      setTimeout(() => {
+         event.target.classList.remove("equals-highlight");
+      }, 200);
+   } else {
+      event.target.classList.add("np-highlight");
+      setTimeout(() => {
+         event.target.classList.remove("np-highlight");
+      }, 200);
+   }
+}
 
 
 
