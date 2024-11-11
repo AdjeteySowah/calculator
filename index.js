@@ -1,13 +1,10 @@
 
 window.addEventListener("load", () => {
-if (!localStorage.getItem('alertsShown')) {
-   alert(`Hi there! Thanks for checking out my calculator web app. Before you get started, here are a few tips for the best experience:\n
-      1. Use portrait mode for optimal viewing, as the layout may not display well in landscape mode.\n
-      2. Decimal numbers are rounded to 5 decimal places for simplicity.\n\n
-      Enjoy!`);
+   if (!localStorage.getItem('alertsShown')) {
+      alert(`Hi there! Thanks for checking out my calculator web app. Before you get started, here are a few tips for the best experience:\n\n1. Use portrait mode for optimal viewing, as the layout may not display well in landscape mode.\n2. Decimal numbers are rounded to 5 decimal places for simplicity.\n\nEnjoy!`);
 
-   localStorage.setItem('alertsShown', 'true');
-}
+      localStorage.setItem('alertsShown', 'true');
+   }
 });
 
 
@@ -106,7 +103,9 @@ percent.addEventListener("click", () => {
 
 let equals = document.querySelector(".equals-btn");
 equals.addEventListener("click", () => {
-   if (outputBottomSection.textContent === "..." || outputBottomSection.textContent === "Infinity") {
+   if (outputBottomSection.textContent === "..." || 
+       outputBottomSection.textContent === "Infinity" ||
+       outputBottomSection.textContent === "NaN") {
       outputTopSection.textContent = "";
       outputTopSection.style.cssText = "font-size: 1.5rem; font-weight: 400;"
       outputTopSection.textContent = "bad expression";
