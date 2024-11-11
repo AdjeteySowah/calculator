@@ -60,22 +60,12 @@ body {
 .output--top-section {
     color: var(--white);
     font-size: var(--font-size-bg);
-    max-width: 100%;
-    overflow: hidden;        
-    white-space: nowrap;    
-    text-overflow: ellipsis;
-    direction: rtl;
 }
 
 .output--bottom-section {
     color: rgba(255, 255, 255, 0.3);
     font-size: var(--font-size-sm);
     min-height: 2.375rem;
-    max-width: 100%;
-    overflow: hidden;        
-    white-space: nowrap;    
-    text-overflow: ellipsis;
-    direction: rtl;
 }
 
 .calc-input {
