@@ -21,10 +21,14 @@
         /* colors */
     --white: rgb(255, 255, 255);
     --blue: rgb(4, 104, 191);
+    --blue--highlight: rgba(4, 104, 191, 0.3);
     --light-blue: rgb(67, 145, 212);
+    --light-blue--highlight: rgba(67, 145, 212, 0.3);
     --main-bgcolor: rgb(15, 22, 27);
     --AC-and-del-bgcolor: rgba(210, 210, 210, 0.3);
+    --AC-and-del-bgcolor--highlight: rgba(210, 210, 210, 0.8);
     --btn-bgcolor: rgba(210, 210, 210, 0.08);
+    --btn-bgcolor--highlight: rgba(210, 210, 210, 0.3);
 
         /* others */
     --margin-or-gap: 0.5rem;
@@ -109,12 +113,30 @@ button {
     border-radius: 1rem;
 }
 
+.all-clear-btn.acb-highlight,
+.backspace-btn.acb-highlight {
+    background-color: var(--AC-and-del-bgcolor--highlight);
+}
+
+.sign.operator-highlight {
+    background-color: var(--blue--highlight);
+}
+
+.equals-btn.equals-highlight {
+    background-color: var(--light-blue--highlight);
+}
+
+.num.np-highlight,
+.percentage-btn.np-highlight {
+    background-color: var(--btn-bgcolor--highlight);
+}
+
 .bottom--right-section button {
     height: auto;
     color: var(--white);
 }
 
-/* the backspace image didn't seem to be right in the center at first */
+    /* the backspace image didn't seem to be right in the center at first */
 .top-section button:nth-child(2) {
     display: grid;
     place-content: center;
