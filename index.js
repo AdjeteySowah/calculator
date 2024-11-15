@@ -26,6 +26,8 @@ allCleared.addEventListener("click", () => {
    operators.forEach((operator) => {
       operator.addEventListener("click", getAndDisplayBtnTextContent);
    });
+
+   point.addEventListener("click", getAndDisplayBtnTextContent);
 });
 
 
