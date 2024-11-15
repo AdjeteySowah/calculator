@@ -215,6 +215,8 @@ function allowOnlyOnePointInNumber() {
    } else if ((typeof(firstNumber) === "number" && !Number.isNaN(firstNumber) && firstNumber % 1 !== 0) ||
                firstFiltration.includes(".")) {
       point.removeEventListener("click", getAndDisplayBtnTextContent);
+   } else {
+      point.addEventListener("click", getAndDisplayBtnTextContent);
    }
 }
 
