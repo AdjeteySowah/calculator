@@ -192,6 +192,7 @@ button {
         max-height: calc(100vh - 50px); /* minus the top and bottom margin */
         border-radius: 1rem;
         padding: 1.25%;
+        box-shadow: 10px 10px 12px 0px rgba(0,0,0,0.5);
     }
 
     .calc-output {
