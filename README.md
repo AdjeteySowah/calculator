@@ -42,3 +42,4 @@ This calculator evaluates calculations step-by-step, following a simple sequenti
 - JavaScript: Functionality for calculator operations and user interactions.
 
 Enjoy!
+[Live website](https://adjeteysowah.github.io/calculator/)
