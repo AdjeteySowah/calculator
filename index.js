@@ -54,14 +54,18 @@ backspace.addEventListener("click", () => {
       secondFiltration.pop();
       outputArray.pop();
    } else if (firstFiltration.length > 0 && outputArray.length === 1) {
-      outputArray = [...outputArray[0]];
+      outputArray = [...outputArray[0]];    // this caters for when the first input is "." which will be shown in the outputArray as "0."
       firstFiltration.pop();
+      // firstNumber = parseFloat(firstFiltration.join(""));      this won't work because firstFiltration will be an empty array. 
+      firstNumber = 0;
+      outputArray.pop();
       outputArray.pop();
    } else if (outputArray.length > firstFiltration.length) {
       secondFiltration.pop();
       outputArray.pop();
    } else {
       firstFiltration.pop();
+      firstNumber = parseFloat(firstFiltration.join(""));
       outputArray.pop();
    }
 
