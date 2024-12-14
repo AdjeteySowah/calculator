@@ -8,6 +8,73 @@ window.addEventListener("load", () => {
 });
 
 
+   // keyboard support
+document.addEventListener("keydown", (event) => {
+   let divisionBtn = document.querySelector(".division-btn");
+   let multiplicationBtn = document.querySelector(".multiplication-btn");
+   let minusBtn = document.querySelector(".minus-btn");
+   let plusBtn = document.querySelector(".plus-btn");
+   let oneBtn = document.querySelector(".one-btn");
+   let twoBtn = document.querySelector(".two-btn");
+   let threeBtn = document.querySelector(".three-btn");
+   let fourBtn = document.querySelector(".four-btn");
+   let fiveBtn = document.querySelector(".five-btn");
+   let sixBtn = document.querySelector(".six-btn");
+   let sevenBtn = document.querySelector(".seven-btn");
+   let eightBtn = document.querySelector(".eight-btn");
+   let nineBtn = document.querySelector(".nine-btn");
+   let zeroBtn = document.querySelector(".zero-btn");
+   let pointBtn = document.querySelector(".point-btn");
+
+
+   let key = event.key;
+
+   if (key === "Escape") {
+      allCleared.click();
+   } else if (key === "Backspace") {
+      backspace.click();
+   } else if (key === "%") {
+      percent.click();
+   } else if (key === "Enter") {
+      event.preventDefault();
+      equals.click();
+   } else if (key === "/") {
+      divisionBtn.click();
+   } else if (key === "*") {
+      multiplicationBtn.click();
+   } else if (key === "-") {
+      minusBtn.click();
+   } else if (key === "+") {
+      plusBtn.click();
+   } else if (key === "1") {
+      oneBtn.click();
+   } else if (key === "2") {
+      twoBtn.click();
+   } else if (key === "3") {
+      threeBtn.click();
+   } else if (key === "4") {
+      fourBtn.click();
+   } else if (key === "5") {
+      fiveBtn.click();
+   } else if (key === "6") {
+      sixBtn.click();
+   } else if (key === "7") {
+      sevenBtn.click();
+   } else if (key === "8") {
+      eightBtn.click();
+   } else if (key === "9") {
+      nineBtn.click();
+   } else if (key === "0") {
+      zeroBtn.click();
+   } else if (key === ".") {
+      pointBtn.click();
+   }
+   else if (event.key === "Tab") {
+      event.preventDefault();
+   }
+});
+
+
    // AC, clear/backspace, percent, and equals functions
 let allCleared = document.querySelector(".all-clear-btn");
 allCleared.addEventListener("click", () => {
@@ -172,6 +239,8 @@ function highlightButton(event) {
          event.target.classList.remove("np-highlight");
       }, 200);
    }
+
+   event.target.blur();
 }
 
 
