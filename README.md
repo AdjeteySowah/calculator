@@ -16,6 +16,8 @@ This project is part of [theOdinProject foundations course](https://www.theodinp
 
 - Percentage Button (%): Calculates a percentage based on the current input.
 
+- Keyboard Support: Perform calculations by pressing keys on your keyboard with smae values you may want to click.
+
 ## Getting Started
 To use the calculator:
 
